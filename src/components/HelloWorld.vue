@@ -1,34 +1,28 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-
-defineProps<{ msg: string }>()
-
-const count = ref(0)
+import useStore from '../store';
+import { computed,onMounted } from 'vue';
+import { login } from '../api/user'
+const store=useStore()
+const countNum=computed(()=>{
+  return store.$state.count
+})
+const onClick=()=>{
+  let num =countNum.value
+  num=num+1
+  store.$patch({
+    count:num
+  })
+}
+onMounted(()=>{
+  login({account:'admin',password:'123456'}).then(res=>{
+    console.log(res);
+    
+  })
+})
 </script>
 
 <template>
-  <h1>{{ msg }}</h1>
-
-  <div class="card">
-    <button type="button" @click="count++">count is {{ count }}</button>
-    <p>
-      Edit
-      <code>components/HelloWorld.vue</code> to test HMR
-    </p>
-  </div>
-
-  <p>
-    Check out
-    <a href="https://vuejs.org/guide/quick-start.html#local" target="_blank"
-      >create-vue</a
-    >, the official Vue + Vite starter
-  </p>
-  <p>
-    Install
-    <a href="https://github.com/johnsoncodehk/volar" target="_blank">Volar</a>
-    in your IDE for a better DX
-  </p>
-  <p class="read-the-docs">Click on the Vite and Vue logos to learn more</p>
+  <button type="button" @click="onClick">count is {{ countNum }}</button>
 </template>
 
 <style scoped>
