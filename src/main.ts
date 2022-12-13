@@ -5,6 +5,7 @@ import { createPinia } from 'pinia'
 import ElementPlus from 'element-plus' // 引入element-plus
 import 'element-plus/dist/index.css' // 引入element-plus样式
 import './mock'
+import './assets/all.css'
 
 const app = createApp(App)
 app.use(createPinia())
