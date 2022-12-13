@@ -1,10 +1,9 @@
 <template>
     <el-menu
-      default-active="2"
+      default-active="1"
       class="el-menu-vertical-demo"
       :collapse="isCollapse"
-      @open="handleOpen"
-      @close="handleClose"
+      @select="menuChange"
     >
       <el-menu-item index="1">
         <el-icon><setting /></el-icon>
@@ -20,6 +19,7 @@
   <script lang="ts" setup>
   import { ref,computed } from 'vue'
   import useStore from '../store';
+  import { useRouter } from 'vue-router';
   import {
     Document,
     Menu as IconMenu,
@@ -28,14 +28,21 @@
   } from '@element-plus/icons-vue'
   
   const store=useStore()
+  const router=useRouter()
   const isCollapse =computed(()=>{
     return store.$state.menuFold
   }) 
-  const handleOpen = (key: string, keyPath: string[]) => {
-    console.log(key, keyPath)
-  }
-  const handleClose = (key: string, keyPath: string[]) => {
-    console.log(key, keyPath)
+  const menuChange = (key: string) => {
+    switch (key) {
+      case '1':
+        router.push('/homepage')
+        break;
+      case '2':
+        router.push('/user/userInfo')
+        break;
+      default:
+        break;
+    }
   }
   </script>
   

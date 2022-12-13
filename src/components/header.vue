@@ -11,7 +11,7 @@
         <el-icon size="48px" v-if="store.$state.menuFold"><Expand /></el-icon>
         <el-icon size="48px" v-else><Fold /></el-icon>
       </el-menu-item>
-      <div class="flex-grow" />
+      <div class="flex-grow"></div>
       <!-- <el-menu-item index="1">
         <el-avatar :size="50" src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" />
       </el-menu-item> -->
@@ -47,7 +47,7 @@
   }
   onMounted(()=>{
     // 解决elementPlus样式
-    const mW = document.querySelector('.el-menu--popup')
+    const mW = <HTMLElement>document.querySelector('.el-menu--popup')
     if(mW){
         mW.style.minWidth='auto'
     }
