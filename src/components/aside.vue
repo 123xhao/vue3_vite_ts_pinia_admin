@@ -5,6 +5,10 @@
       :collapse="isCollapse"
       @select="menuChange"
     >
+      <el-menu-item class="noHover" index="0">
+        <el-avatar style="margin-right: 10px;" size="100" fit="fill" src="https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg" />
+        <template #title>vue3-admin</template>
+      </el-menu-item>
       <el-menu-item index="1">
         <el-icon><setting /></el-icon>
         <template #title>首页</template>
@@ -47,6 +51,13 @@
   </script>
   
   <style scoped>
+  .noHover:hover{
+    background: skyblue;
+    color: #000;
+  }
+  .noHover{
+    color: #000;
+  }
   .el-menu-vertical-demo:not(.el-menu--collapse) {
     width: 200px;
     min-height: 100%;

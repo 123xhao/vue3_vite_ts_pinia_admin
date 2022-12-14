@@ -12,8 +12,9 @@
             v-for="tag in pageTags"
             :key="tag.name"
             class="mx-1"
-            closable
+            :closable="tag.closable"
             :type="tag.type"
+            @click="tagsChange(tag.path)"
             style="margin-right: 10px;"
           >
             {{ tag.name }}
@@ -30,15 +31,22 @@
 import asideVue from '../../components/aside.vue';
 import headerVue from '../../components/header.vue';
 import { ref } from 'vue'
+import { useRouter } from 'vue-router';
 
+const router=useRouter()
 const pageTags = ref([
-  { name: 'Tag 1', type: '' },
-  { name: 'Tag 2', type: '' },
-  { name: 'Tag 3', type: '' },
-  { name: 'Tag 4', type: '' },
-  { name: 'Tag 5', type: '' },
+  { name: '首页', type: '',closable:false,path:'/homepage' },
+  { name: '我的信息', type: 'info',closable:true,path:'/user/userInfo' },
 ])
-
+function tagsChange(path:any) {
+  pageTags.value.forEach(item=>{
+    item.type='info'
+    if(item.path===path){
+      item.type=''
+    }
+  })
+  router.push(path)
+}
 </script>
 
 <style scoped>
@@ -59,5 +67,18 @@ const pageTags = ref([
   align-items: center;
   padding: 0 10px;
   border-bottom: 1px solid #ccc;
+  cursor: pointer;
+}
+.pages .el-tag:hover{
+  color: #409eff;
+  background-color: #ecf5ff;
+  border-color: #d9ecff;
+}
+.pages .el-tag:hover::v-deep .el-tag__close{
+  color: #409eff;
+}
+.pages .el-tag::v-deep .el-tag__close:hover {
+  color: #fff;
+  background-color: #409eff;
 }
 </style>

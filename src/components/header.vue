@@ -28,6 +28,7 @@
   <script lang="ts" setup>
   import { ref,onMounted } from 'vue'
   import useStore from '../store';
+  import { useRouter } from 'vue-router';
   import {
     Expand,
     Fold,
@@ -36,6 +37,7 @@
   } from '@element-plus/icons-vue'
   
   const store=useStore()
+  const router=useRouter()
   const activeIndex = ref('1')
   const handleSelect = (key: string, keyPath: string[]) => {
     console.log(key, keyPath)
@@ -43,6 +45,19 @@
         store.$patch({
             menuFold:!store.$state.menuFold
         })
+    }
+    switch (key) {
+      case '0':
+        store.$patch({
+          menuFold:!store.$state.menuFold
+        })
+        break;
+      case '2-2':
+        localStorage.removeItem('token')
+        router.push('/')
+        break;
+      default:
+        break;
     }
   }
   onMounted(()=>{
