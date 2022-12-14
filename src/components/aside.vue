@@ -6,8 +6,8 @@
       @select="menuChange"
     >
       <el-menu-item class="noHover" index="0">
-        <el-avatar style="margin-right: 10px;" size="100" fit="fill" src="https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg" />
-        <template #title>vue3-admin</template>
+        <el-avatar fit="fill" src="https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg" />
+        <template #title><span style="margin-left: 10px;">vue3-admin</span></template>
       </el-menu-item>
       <el-menu-item index="1">
         <el-icon><setting /></el-icon>
@@ -57,6 +57,13 @@
   }
   .noHover{
     color: #000;
+    padding: 0;
+  }
+  .noHover::v-deep .el-menu-tooltip__trigger{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0
   }
   .el-menu-vertical-demo:not(.el-menu--collapse) {
     width: 200px;

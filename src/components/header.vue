@@ -40,12 +40,6 @@
   const router=useRouter()
   const activeIndex = ref('1')
   const handleSelect = (key: string, keyPath: string[]) => {
-    console.log(key, keyPath)
-    if(key==='0'){
-        store.$patch({
-            menuFold:!store.$state.menuFold
-        })
-    }
     switch (key) {
       case '0':
         store.$patch({
