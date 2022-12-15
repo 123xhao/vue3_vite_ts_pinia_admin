@@ -1,5 +1,5 @@
 <template>
-    <div style="display: flex;width: 100%;height: 35%;justify-content: space-around;">
+    <div style="display: flex;width: 100%;height: 34%;justify-content: space-between;">
         <div id="left"></div>
         <div id="center"></div>
         <div id="right"></div>
@@ -23,10 +23,17 @@ onMounted(()=>{
 <style scoped>
 #left,#right,#center{
     width: 500px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    box-shadow: 0px 2px 8px #ccc;
+}
+#right{
+    margin-right: 0;
 }
 #main{
     width: 100%;
     height: 65%;
+    box-shadow: 0px 2px 8px #ccc;
 }
 
 </style>

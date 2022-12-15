@@ -23,6 +23,11 @@ const routes=[
                 path:'/user/userInfo',
                 name:'UserInfo',
                 component:()=>import('../view/user/userInfo.vue')
+            },
+            {
+                path:'/home/table',
+                name:'Table',
+                component:()=>import('../view/table/index.vue')
             }
         ]
     }

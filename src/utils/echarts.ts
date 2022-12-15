@@ -185,7 +185,7 @@ export const echartsLeft=function (){
     option = {
     title: {
         text: '',
-        subtext: 'Fake Data',
+        subtext: '技术可视化',
         left: 'center'
     },
     tooltip: {
@@ -197,14 +197,14 @@ export const echartsLeft=function (){
     },
     series: [
         {
-        name: 'Access From',
+        name: '使用频率',
         type: 'pie',
         radius: '50%',
         data: [
-            { value: 1048, name: 'Search Engine' },
-            { value: 735, name: 'Direct' },
-            { value: 580, name: 'Email' },
-            { value: 484, name: 'Union Ads' },
+            { value: 1048, name: 'HTML' },
+            { value: 735, name: 'CSS' },
+            { value: 580, name: 'JavaScript' },
+            { value: 484, name: 'Vue' },
         ],
         emphasis: {
             itemStyle: {
@@ -434,7 +434,7 @@ export const echartsCenter=function (){
     var hour = (date.getHours() % 12) + minute / 60;
 
     option.animationDurationUpdate = 300;
-    myChart.setOption<echarts.EChartsOption>({
+    myChart?.setOption<echarts.EChartsCoreOption>({
         series: [
         {
             name: 'hour',
@@ -543,7 +543,7 @@ export const echartsRight=function (){
     const zoomSize = 6;
     myChart.on('click', function (params) {
     console.log(dataAxis[Math.max(params.dataIndex - zoomSize / 2, 0)]);
-    myChart.dispatchAction({
+    myChart?.dispatchAction({
         type: 'dataZoom',
         startValue: dataAxis[Math.max(params.dataIndex - zoomSize / 2, 0)],
         endValue:
@@ -553,7 +553,7 @@ export const echartsRight=function (){
 
     option && myChart.setOption(option);
     window.addEventListener('resize',()=>{
-        myChart.resize()
+        myChart?.resize()
     })
 
 }

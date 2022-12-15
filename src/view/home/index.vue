@@ -30,15 +30,19 @@
 <script setup lang="ts">
 import asideVue from '../../components/aside.vue';
 import headerVue from '../../components/header.vue';
-import { ref } from 'vue'
+import { ref,computed } from 'vue'
 import { useRouter } from 'vue-router';
+import useStore from '../../store';
 
 const router=useRouter()
-const pageTags = ref([
-  { name: '首页', type: '',closable:false,path:'/homepage' },
-  { name: '我的信息', type: 'info',closable:true,path:'/user/userInfo' },
-])
+const store=useStore()
+const pageTags = computed(()=>{
+  return store.$state.tagMenuList
+})
 function tagsChange(path:any) {
+  store.$patch({
+    checkMenu:path
+  })
   pageTags.value.forEach(item=>{
     item.type='info'
     if(item.path===path){
