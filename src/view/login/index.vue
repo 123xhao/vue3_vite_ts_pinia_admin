@@ -8,12 +8,12 @@
             :rules="rules"
             class="demo-ruleForm"
         >
-            <el-form-item label="账号" prop="user">
-            <el-input v-model="userForm.user" type="password" autocomplete="off" />
+            <el-form-item label="账号" prop="userName">
+            <el-input v-model="userForm.userName" type="text" autocomplete="off" />
             </el-form-item>
-            <el-form-item label="密码" prop="password">
+            <el-form-item label="密码" prop="passWord">
             <el-input
-                v-model="userForm.password"
+                v-model="userForm.passWord"
                 type="password"
                 autocomplete="off"
             />
@@ -28,20 +28,21 @@
 
 <script setup lang="ts">
 import { ref,reactive } from 'vue';
-import { loginUser } from '../../api/user';
+import { loginUser,userInfo } from '../../api/user';
 import type { FormInstance } from 'element-plus'
 import { ElMessage } from 'element-plus'
 import { useRouter } from 'vue-router';
+import { log } from 'console';
 
 const router =useRouter()
 const ruleFormRef = ref<FormInstance>()
 const userForm=reactive({
-    user:'',
-    password:''
+    userName:'',
+    passWord:''
 })
 const rules = reactive({
-  user:  [{ required: true, message: '请填写账号', trigger: 'blur' }],
-  password: [{ required: true, message: '请填写账号密码', trigger: 'blur' }],
+    userName:  [{ required: true, message: '请填写账号', trigger: 'blur' }],
+    passWord: [{ required: true, message: '请填写账号密码', trigger: 'blur' }],
 })
 
 const login = (formEl: FormInstance | undefined) => {
@@ -55,6 +56,12 @@ const login = (formEl: FormInstance | undefined) => {
                 duration:3*1000
             })
             localStorage.setItem('token',res.token)
+            setTimeout(()=>{
+                userInfo().then(res=>{
+                    let data=JSON.stringify(res)
+                    sessionStorage.setItem('userInfo', data);
+                })
+            },1000)
             router.push('/home')
     })
     } else {

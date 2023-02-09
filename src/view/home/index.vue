@@ -28,12 +28,11 @@
 </template>
 
 <script setup lang="ts">
-import asideVue from '../../components/aside.vue';
-import headerVue from '../../components/header.vue';
+import AsideVue from '../../components/aside.vue';
+import HeaderVue from '../../components/header.vue';
 import { ref,computed } from 'vue'
 import { useRouter } from 'vue-router';
 import useStore from '../../store';
-
 const router=useRouter()
 const store=useStore()
 const pageTags = computed(()=>{

@@ -9,7 +9,7 @@
                     />
             </div>
             <el-divider />
-            <div v-for="item in userData">
+            <div v-for="item in userData" :key="item.title">
                 <div class="d_space-between">
                     <div class="d_center">
                         <el-icon><Avatar /></el-icon>
@@ -35,15 +35,15 @@
                         <el-form-item label="用户昵称" prop="nickName">
                         <el-input v-model="baseData.nickName" type="text" autocomplete="off" />
                         </el-form-item>
-                        <el-form-item label="手机号码" prop="phone">
+                        <el-form-item label="手机号码" prop="phoneNumber">
                         <el-input
-                            v-model="baseData.phone"
+                            v-model="baseData.phoneNumber"
                             type="text"
                             autocomplete="off"
                         />
                         </el-form-item>
                         <el-form-item>
-                            <el-button type="primary">保存</el-button>
+                            <el-button type="primary" @click="submitUserInfo">保存</el-button>
                             <el-button>关闭</el-button>
                         </el-form-item>
                     </el-form>
@@ -80,18 +80,21 @@
 import {
     Avatar,
   } from '@element-plus/icons-vue'
+import {modify} from '../../api/user'
 import { reactive,ref } from 'vue';
-import type { FormInstance, TabsPaneContext } from 'element-plus'
+import { ElButton, ElCard, ElDivider, ElForm, ElFormItem, ElIcon, ElImage, ElInput, ElTabPane, ElTabs, FormInstance, TabsPaneContext } from 'element-plus'
+import { log } from 'console';
+let userInfo=JSON.parse(sessionStorage.getItem('userInfo'))
   const userData=reactive([
     {
         title:'用户昵称',
         icon:'Avatar',
-        value:'一只蟹'
+        value:userInfo.nickName
     },
     {
         title:'手机号码',
         icon:'Avatar',
-        value:'18888888888'
+        value:userInfo.phoneNumber
     },
     {
         title:'所属部门',
@@ -101,12 +104,12 @@ import type { FormInstance, TabsPaneContext } from 'element-plus'
     {
         title:'所属角色',
         icon:'Avatar',
-        value:'管理员'
+        value:userInfo.userName
     },
     {
         title:'创建日期',
         icon:'Avatar',
-        value:'2022-12-13 14:28'
+        value:userInfo.createTime
     }
   ])
   const activeName = ref('first')
@@ -117,9 +120,26 @@ const handleClick = (tab: TabsPaneContext, event: Event) => {
 
 const ruleFormRef = ref<FormInstance>()
 const baseData=reactive({
-    nickName:'一只蟹',
-    phone:'18888888888'
+    id:'1',
+    nickName:userInfo.nickName,
+    phoneNumber:userInfo.phoneNumber
 })
+function submitUserInfo(){
+    modify(baseData).then(res=>{
+        console.log(res);
+        userData[0]={
+            title:'用户昵称',
+            icon:'Avatar',
+            value:res.nickName
+        },
+        userData[1]={
+            title:'手机号码',
+            icon:'Avatar',
+            value:res.phoneNumber
+        },
+        sessionStorage.setItem('userInfo',JSON.stringify(res))
+    })
+}
 const modifyData=reactive({
     oldPassword:'',
     newPassword:'',
@@ -127,7 +147,7 @@ const modifyData=reactive({
 })
 const rules = reactive({
   nickName:  [{ required: true, message: '请填写用户昵称', trigger: 'blur' }],
-  phone: [{ required: true, message: '请填写手机号码', trigger: 'blur' }],
+  phoneNumber: [{ required: true, message: '请填写手机号码', trigger: 'blur' }],
   oldPassword:  [{ required: true, message: '请填写旧密码', trigger: 'blur' }],
   newPassword: [{ required: true, message: '请填写新密码', trigger: 'blur' }],
   confirmPassword:  [{ required: true, message: '请填写确认密码', trigger: 'blur' }],

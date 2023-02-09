@@ -35,16 +35,21 @@
     User,
     CloseBold
   } from '@element-plus/icons-vue'
+import { log } from 'console';
   
   const store=useStore()
   const router=useRouter()
   const activeIndex = ref('1')
   const handleSelect = (key: string, keyPath: string[]) => {
+    console.log(key)
     switch (key) {
       case '0':
         store.$patch({
           menuFold:!store.$state.menuFold
         })
+        break;
+      case '2-1':
+        router.push('/user/userInfo')
         break;
       case '2-2':
         localStorage.removeItem('token')
