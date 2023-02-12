@@ -32,7 +32,6 @@ import { loginUser,userInfo } from '../../api/user';
 import type { FormInstance } from 'element-plus'
 import { ElMessage } from 'element-plus'
 import { useRouter } from 'vue-router';
-import { log } from 'console';
 
 const router =useRouter()
 const ruleFormRef = ref<FormInstance>()
@@ -55,10 +54,10 @@ const login = (formEl: FormInstance | undefined) => {
                 type:'success',
                 duration:3*1000
             })
-            localStorage.setItem('token',res.token)
+            localStorage.setItem('token',res.data.token)
             setTimeout(()=>{
                 userInfo().then(res=>{
-                    let data=JSON.stringify(res)
+                    let data=JSON.stringify(res.data)
                     sessionStorage.setItem('userInfo', data);
                 })
             },1000)

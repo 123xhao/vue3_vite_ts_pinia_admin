@@ -20,3 +20,9 @@ export function modify(data: any){
         data
     })
 }
+export function query(){
+    return request({
+        url: '/api/homeImg/query',
+        method:'get'
+    })
+}

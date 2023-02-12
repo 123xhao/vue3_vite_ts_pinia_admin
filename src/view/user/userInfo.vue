@@ -83,7 +83,6 @@ import {
 import {modify} from '../../api/user'
 import { reactive,ref } from 'vue';
 import { ElButton, ElCard, ElDivider, ElForm, ElFormItem, ElIcon, ElImage, ElInput, ElTabPane, ElTabs, FormInstance, TabsPaneContext } from 'element-plus'
-import { log } from 'console';
 let userInfo=JSON.parse(sessionStorage.getItem('userInfo'))
   const userData=reactive([
     {
@@ -130,14 +129,14 @@ function submitUserInfo(){
         userData[0]={
             title:'用户昵称',
             icon:'Avatar',
-            value:res.nickName
+            value:res.data.nickName
         },
         userData[1]={
             title:'手机号码',
             icon:'Avatar',
-            value:res.phoneNumber
+            value:res.data.phoneNumber
         },
-        sessionStorage.setItem('userInfo',JSON.stringify(res))
+        sessionStorage.setItem('userInfo',JSON.stringify(res.data))
     })
 }
 const modifyData=reactive({

@@ -21,6 +21,14 @@
         <el-icon><location /></el-icon>
         <template #title>表格信息</template>
       </el-menu-item>
+      <el-menu-item index="/ceshi/upload">
+        <el-icon><location /></el-icon>
+        <template #title>测试</template>
+      </el-menu-item>
+      <el-menu-item index="/article">
+        <el-icon><Files /></el-icon>
+        <template #title>文章管理</template>
+      </el-menu-item>
     </el-menu>
   </template>
   
@@ -33,6 +41,7 @@
     Menu as IconMenu,
     Location,
     Setting,
+    Files
   } from '@element-plus/icons-vue'
 import { el } from 'element-plus/es/locale';
   
@@ -44,10 +53,12 @@ import { el } from 'element-plus/es/locale';
   const checkMenu=computed(()=>{
     return store.$state.checkMenu
   })
-  const menuChange = (key: string) => {
+  const menuChange = (key: string,) => {
+
     let data: { name: string; type: string; closable: boolean; path: string; }[]=store.tagMenuList
     let old: string[]=[]
     let add: { name: string; type: string; closable: boolean; path: string; }[]=[]
+
     switch (key) {
       case '/homepage':
           data.forEach((item,index)=>{
@@ -110,6 +121,62 @@ import { el } from 'element-plus/es/locale';
             store.tagMenuList=[...data,...add]
           })
         router.push('/home/table')
+        break;
+        case '/ceshi/upload':
+            console.log(1);
+            
+        store.$patch((store)=>{
+            data.forEach(item=>{
+              item.type='info'
+              old.push(item.path)
+            })
+            if(old.includes('/ceshi/upload')){
+              let index = old.indexOf('/ceshi/upload')
+              data[index]={
+                  name: '测试',
+                  type: '',
+                  closable: true,
+                  path: '/ceshi/upload'
+              }
+            }else{
+              add.push({
+                  name: '测试',
+                  type: '',
+                  closable: true,
+                  path: '/ceshi/upload'
+                })
+            }
+            store.tagMenuList=[...data,...add]
+          })
+        router.push('/ceshi/upload')
+        break;
+        case '/article':
+            console.log(1);
+            
+        store.$patch((store)=>{
+            data.forEach(item=>{
+              item.type='info'
+              old.push(item.path)
+            })
+            if(old.includes('/article')){
+              let index = old.indexOf('/article')
+              data[index]={
+                  name: '测试',
+                  type: '',
+                  closable: true,
+                  path: '/article'
+              }
+            }else{
+              add.push({
+                  name: '文章管理',
+                  type: '',
+                  closable: true,
+                  path: '/article'
+                })
+            }
+            store.tagMenuList=[...data,...add]
+          })
+        router.push('/article')
         break;
       default:
         break;

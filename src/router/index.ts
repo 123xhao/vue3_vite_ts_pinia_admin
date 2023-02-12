@@ -28,6 +28,16 @@ const routes=[
                 path:'/home/table',
                 name:'Table',
                 component:()=>import('../view/table/index.vue')
+            },
+            {
+                path:'/ceshi/upload',
+                name:'Upload',
+                component:()=>import('../view/ceshi/upload.vue')
+            },
+            {
+                path:'/article',
+                name:'article',
+                component:()=>import('../view/article/index.vue')
             }
         ]
     }
