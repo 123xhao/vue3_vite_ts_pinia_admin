@@ -22,7 +22,7 @@
     <el-image style="width: 100px; height: 100px" :src="url" />
   </template>
   <script lang="ts" setup>
-  import { onMounted, ref } from 'vue'
+  import { onMounted, ref,reactive } from 'vue'
   import { ElMessage, ElMessageBox } from 'element-plus'
   import { query } from '../../api/user';
   
@@ -32,10 +32,11 @@
   const uploadHeaders={
     Authorization:localStorage.getItem('token')
   }
-  let url=ref<any>('')
+  let url=ref<string>('')
   onMounted(()=>{
     query().then(res=>{
-        url=new URL('http://127.0.0.1:7001/'+res[0].url, import.meta.url).href
+      console.log(res)
+        url.value=new URL('http://127.0.0.1:7001/'+res.data[0].url, import.meta.url).href
         console.log(url); 
     })
   })
