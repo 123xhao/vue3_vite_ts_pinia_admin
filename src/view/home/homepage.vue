@@ -25,7 +25,7 @@ onMounted(()=>{
     width: 500px;
     margin-right: 10px;
     margin-bottom: 10px;
-    box-shadow: 0px 2px 8px #ccc;
+    box-shadow: 0 2px 8px #ccc;
 }
 #right{
     margin-right: 0;
@@ -33,7 +33,7 @@ onMounted(()=>{
 #main{
     width: 100%;
     height: 65%;
-    box-shadow: 0px 2px 8px #ccc;
+    box-shadow: 0 2px 8px #ccc;
 }
 
 </style>

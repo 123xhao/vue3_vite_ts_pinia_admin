@@ -33,11 +33,11 @@
     <info-vue :show="infoDialog" @close="infoDialog=false"></info-vue>
     <edit-vue :show="editDialog" @close="editDialog=false"></edit-vue>
   </template>
-  
+
   <script lang="ts" setup>
   import { onMounted, reactive,Ref,ref } from 'vue'
   import { query } from '../../api/article';
-  import infoVue from './components/info.vue';
+  import infoVue from './components/info.vue'
   import editVue from './components/edit.vue'
 
   const infoDialog=ref<boolean>(false)
@@ -50,7 +50,7 @@ const formData = reactive({
 const onSubmit = () => {
   articleQuery(formData)
 }
-  
+
   let tableData:Ref<never[]> = ref([])
   function articleQuery(params:any){
     query(params).then(res=>{
@@ -62,13 +62,6 @@ const onSubmit = () => {
     articleQuery(null)
   })
   </script>
-  
+
   <style scoped>
-  .el-table .warning-row {
-    --el-table-tr-bg-color: var(--el-color-warning-light-9);
-  }
-  .el-table .success-row {
-    --el-table-tr-bg-color: var(--el-color-success-light-9);
-  }
   </style>
-  

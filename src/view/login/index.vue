@@ -32,6 +32,22 @@ const userForm=reactive({
 })
 
 const login = () => {
+  if(!userForm.userName){
+    ElMessage({
+      message:'请输入账户',
+      type:'warning',
+      duration:3*1000
+    })
+    return
+  }
+  if(!userForm.passWord){
+    ElMessage({
+      message:'请输入密码',
+      type:'warning',
+      duration:3*1000
+    })
+    return
+  }
     loginUser(userForm).then((res: any)=>{
         ElMessage({
             message:'登录成功',
@@ -47,10 +63,6 @@ const login = () => {
         },1000)
         router.push('/home')
     })
-}
-const resetForm = (formEl: FormInstance | undefined) => {
-  if (!formEl) return
-  formEl.resetFields()
 }
 
 </script>
@@ -158,9 +170,9 @@ label{
   transition: all 0.3s ease;
   position: relative;
   display: inline-block;
-  box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
-  7px 7px 20px 0px rgba(0,0,0,.1),
-  4px 4px 5px 0px rgba(0,0,0,.1);
+  box-shadow:inset 2px 2px 2px 0 rgba(255,255,255,.5),
+  7px 7px 20px 0 rgba(0,0,0,.1),
+  4px 4px 5px 0 rgba(0,0,0,.1);
   outline: none;
 }
 /* 7 */
@@ -184,18 +196,18 @@ label{
   bottom: 0;
   background: rgba(2,126,251,1);
   box-shadow:
-      -7px -7px 20px 0px rgba(255,255,255,.9),
-      -4px -4px 5px 0px rgba(255,255,255,.9),
-      7px 7px 20px 0px rgba(0,0,0,.2),
-      4px 4px 5px 0px rgba(0,0,0,.3);
+      -7px -7px 20px 0 rgba(255,255,255,.9),
+      -4px -4px 5px 0 rgba(255,255,255,.9),
+      7px 7px 20px 0 rgba(0,0,0,.2),
+      4px 4px 5px 0 rgba(0,0,0,.3);
   transition: all 0.3s ease;
 }
 .btn-7:before{
-  height: 0%;
+  height: 0;
   width: 2px;
 }
 .btn-7:after {
-  width: 0%;
+  width: 0;
   height: 2px;
 }
 .btn-7:hover{
@@ -216,19 +228,19 @@ label{
   top: 0;
   background: rgba(2,126,251,1);
   box-shadow:
-      -7px -7px 20px 0px rgba(255,255,255,.9),
-      -4px -4px 5px 0px rgba(255,255,255,.9),
-      7px 7px 20px 0px rgba(0,0,0,.2),
-      4px 4px 5px 0px rgba(0,0,0,.3);
+      -7px -7px 20px 0 rgba(255,255,255,.9),
+      -4px -4px 5px 0 rgba(255,255,255,.9),
+      7px 7px 20px 0 rgba(0,0,0,.2),
+      4px 4px 5px 0 rgba(0,0,0,.3);
   transition: all 0.3s ease;
 }
 .btn-7 span:before {
   width: 2px;
-  height: 0%;
+  height: 0;
 }
 .btn-7 span:after {
   height: 2px;
-  width: 0%;
+  width: 0;
 }
 .btn-7 span:hover:before {
   height: 100%;
