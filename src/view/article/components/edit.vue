@@ -1,37 +1,11 @@
 <template>
-    <el-dialog :fullscreen="true" v-model="props.show" title="修改文章内容" width="30%" center @close="close">
-        <div style="display: flex;">
-            <h3>标题：</h3>
-            <el-input style="width: 50%;" v-model="articleTitle" placeholder="请输入标题" />
-        </div>
-        <div style="border: 1px solid #ccc">
-            <Toolbar
-                style="border-bottom: 1px solid #ccc"
-                :editor="editorRef"
-                :defaultConfig="toolbarConfig"
-            />
-            <Editor
-                style="height: 400px; overflow-y: hidden;"
-                v-model="valueHtml"
-                :defaultConfig="editorConfig"
-                @onCreated="handleCreated"
-            />
-        </div>
-        <template #footer>
-            <span class="dialog-footer">
-                <el-button @click="close">取消</el-button>
-                <el-button type="primary" @click="onSubmitArticle">
-                提交
-                </el-button>
-            </span>
-        </template>
+    <el-dialog :fullscreen="true" v-model="props.show" title="修改文章内容" center @close="close">
+        <v-md-editor @save="articleSave" v-model="articleData" height="80vh"></v-md-editor>
     </el-dialog>
   </template>
   <script lang="ts" setup>
-  import '@wangeditor/editor/dist/css/style.css' // 引入 css
 
 import { onBeforeUnmount, ref, shallowRef, onMounted } from 'vue'
-import { Editor, Toolbar } from '@wangeditor/editor-for-vue'
 import { query,modify } from '../../../api/article';
 import { ElMessage } from 'element-plus';
 
@@ -40,11 +14,12 @@ import { ElMessage } from 'element-plus';
     id:Number
   })
   let articleTitle=ref<string>('')
+  let articleData=ref<string>('')
   const emit=defineEmits(['close'])
   function close(){
     emit('close')
   }
-  
+
 
 
   // 编辑器实例，必须用 shallowRef
@@ -60,7 +35,9 @@ onMounted(() => {
         articleTitle=res.data[0].title
     })
 })
-function onSubmitArticle(){
+
+function articleSave(text,html){
+  console.log(text,html)
     let data={
         id:props.id,
         title:articleTitle,
@@ -94,4 +71,3 @@ const handleCreated = (editor: any) => {
     margin-right: 10px;
   }
   </style>
-  

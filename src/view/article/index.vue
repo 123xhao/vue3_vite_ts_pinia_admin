@@ -51,7 +51,7 @@ const onSubmit = () => {
   articleQuery(formData)
 }
 
-  let tableData:Ref<never[]> = ref([])
+  let tableData:Ref<never[]> = ref([{}])
   function articleQuery(params:any){
     query(params).then(res=>{
         tableData.value=res.data
