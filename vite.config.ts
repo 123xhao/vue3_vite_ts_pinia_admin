@@ -12,6 +12,7 @@ export default defineConfig({
   plugins: [vue()],
   base:'/',
   server:{
+    open:true,
     proxy:{
       '/api':{
         target:'http://127.0.0.1:7001',

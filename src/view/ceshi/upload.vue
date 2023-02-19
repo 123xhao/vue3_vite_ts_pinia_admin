@@ -29,6 +29,7 @@
   import type { UploadProps, UploadUserFile } from 'element-plus'
   
   const fileList = ref<UploadUserFile[]>([])
+  
   const uploadHeaders={
     Authorization:localStorage.getItem('token')
   }

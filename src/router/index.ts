@@ -30,9 +30,9 @@ const routes=[
                 component:()=>import('../view/table/index.vue')
             },
             {
-                path:'/ceshi/upload',
-                name:'Upload',
-                component:()=>import('../view/ceshi/upload.vue')
+                path:'/gallery',
+                name:'gallery',
+                component:()=>import('../view/gallery/index.vue')
             },
             {
                 path:'/article',

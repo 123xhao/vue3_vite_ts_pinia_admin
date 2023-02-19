@@ -1,27 +1,28 @@
 <template>
-    <el-dialog v-model="props.show" title="Warning" width="30%" center @close="close">
-      <span>
-        It should be noted that the content will not be aligned in center by
-        default
-      </span>
+    <el-dialog :fullscreen="true" v-model="props.show" center @close="close">
+        <v-md-preview :text="props.articleData.contentText"></v-md-preview>
     </el-dialog>
-  </template>
-  <script lang="ts" setup>
-  import { ref } from 'vue'
+</template>
+<script lang="ts" setup>
+import { ref } from 'vue';
+//  接收父组件传值
+const props=defineProps({
+    show: {
+        type:Boolean,
+        default:false
+    },
+    articleData: {
+        type:Object,
+        default:()=>{}
+    },
+})
+// 向父组件传值
+const emit=defineEmits(['close'])
+function close(){
+  emit('close')
+}
   
-  const infoDialog = ref(false)
-  const props=defineProps({
-    show:Boolean
-  })
-  const emit=defineEmits(['close'])
-  function close(){
-    emit('close')
-  }
-  
-  </script>
-  <style scoped>
-  .dialog-footer button:first-child {
-    margin-right: 10px;
-  }
-  </style>
+</script>
+<style scoped>
+</style>
   

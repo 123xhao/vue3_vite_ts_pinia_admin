@@ -13,6 +13,11 @@
         <el-button type="primary" @click="onSubmit">搜索</el-button>
         </el-form-item>
     </el-form>
+    <!-- 文章新增开始 -->
+    <div style="margin: 10px 0;">
+        <el-button type="primary" @click="articleEdit('新增',null)">新增文章</el-button>
+    </div>
+    <!-- 文章新增结束 -->
     <el-table
       :data="tableData"
       style="width: 100%"
@@ -24,44 +29,82 @@
       <el-table-column prop="status" label="发布状态" />
       <el-table-column label="操作" width="300">
         <template #default="scope">
-            <el-button text type="primary" @click="infoDialog=true">查看</el-button>
-            <el-button text type="success" @click="editDialog=true">编辑</el-button>
-            <el-button text type="danger">删除</el-button>
+            <el-button text type="primary" @click="articleInfo(scope.row)">查看</el-button>
+            <el-button text type="success" @click="articleEdit('编辑',scope.row)">编辑</el-button>
+            <el-button text type="danger" @click="articleDelete(scope.row)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
-    <info-vue :show="infoDialog" @close="infoDialog=false"></info-vue>
-    <edit-vue :show="editDialog" @close="editDialog=false"></edit-vue>
-  </template>
+    <info-vue :show="infoDialog" :article-data="articleData" @close="infoDialog=false"></info-vue>
+    <edit-vue :show="editDialog" :article-data="articleData" @close="closeDialog"></edit-vue>
+</template>
+<script lang="ts" setup>
+import { onMounted, reactive,Ref,ref } from 'vue'
+import { query,deleteArticle } from '../../api/article';
+import infoVue from './components/info.vue'
+import editVue from './components/edit.vue'
+import { ElMessage } from 'element-plus';
 
-  <script lang="ts" setup>
-  import { onMounted, reactive,Ref,ref } from 'vue'
-  import { query } from '../../api/article';
-  import infoVue from './components/info.vue'
-  import editVue from './components/edit.vue'
 
-  const infoDialog=ref<boolean>(false)
-  const editDialog=ref<boolean>(false)
+// 打开新增文章弹窗
+function addArticle(){
+
+}
+// 传递给子组件数据
+const articleData=ref<object>({})
+// 打开文章详情弹窗 赋值传给子组件
+const infoDialog=ref<boolean>(false)
+function articleInfo(row:any){
+  infoDialog.value=true
+  articleData.value=row
+}
+// 打开编辑文章弹窗 赋值传给子组件
+function articleEdit(type:string,row:any){
+  editDialog.value=true
+  articleData.value={type,...row}
+}
+// 控制编辑文章弹窗
+const editDialog=ref<boolean>(false)
+// 表格条件数据
 const formData = reactive({
     title: undefined,
     status: undefined,
 })
-
+// 表格条件搜索
 const onSubmit = () => {
   articleQuery(formData)
 }
-
-  let tableData:Ref<never[]> = ref([{}])
-  function articleQuery(params:any){
-    query(params).then(res=>{
-        tableData.value=res.data
-    })
-  }
-
-  onMounted(()=>{
-    articleQuery(null)
+// 表格数据
+let tableData:Ref<never[]> = ref([])
+// 表格查询文章列表
+function articleQuery(params:any){
+  query(params).then(res=>{
+    tableData.value=res.data
   })
-  </script>
+}
+// dom挂载完毕
+onMounted(()=>{
+  articleQuery(null)
+})
+// 编辑文章关闭表格触发刷新
+function closeDialog(val:boolean){
+  editDialog.value=false
+  if(val){
+    articleQuery(null)
+}
+}
+// 删除文章
+function articleDelete(params:any){
+  deleteArticle({id:params.id}).then(()=>{
+    ElMessage({
+        message:'删除成功',
+        type:'success',
+        duration:3*1000
+    })
+    articleQuery(null)
+})
+}
+</script>
 
-  <style scoped>
-  </style>
+<style scoped>
+</style>

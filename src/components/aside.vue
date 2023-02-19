@@ -21,9 +21,9 @@
         <el-icon><location /></el-icon>
         <template #title>表格信息</template>
       </el-menu-item>
-      <el-menu-item index="/ceshi/upload">
+      <el-menu-item index="/gallery">
         <el-icon><location /></el-icon>
-        <template #title>测试</template>
+        <template #title>画廊管理</template>
       </el-menu-item>
       <el-menu-item index="/article">
         <el-icon><Files /></el-icon>
@@ -122,33 +122,31 @@ import { el } from 'element-plus/es/locale';
           })
         router.push('/home/table')
         break;
-        case '/ceshi/upload':
-            console.log(1);
-            
+        case '/gallery':
         store.$patch((store)=>{
             data.forEach(item=>{
               item.type='info'
               old.push(item.path)
             })
-            if(old.includes('/ceshi/upload')){
-              let index = old.indexOf('/ceshi/upload')
+            if(old.includes('/gallery')){
+              let index = old.indexOf('/gallery')
               data[index]={
-                  name: '测试',
+                  name: '画廊管理',
                   type: '',
                   closable: true,
-                  path: '/ceshi/upload'
+                  path: '/gallery'
               }
             }else{
               add.push({
-                  name: '测试',
+                  name: '画廊管理',
                   type: '',
                   closable: true,
-                  path: '/ceshi/upload'
+                  path: '/gallery'
                 })
             }
             store.tagMenuList=[...data,...add]
           })
-        router.push('/ceshi/upload')
+        router.push('/gallery')
         break;
         case '/article':
             console.log(1);
@@ -161,7 +159,7 @@ import { el } from 'element-plus/es/locale';
             if(old.includes('/article')){
               let index = old.indexOf('/article')
               data[index]={
-                  name: '测试',
+                  name: '文章管理',
                   type: '',
                   closable: true,
                   path: '/article'

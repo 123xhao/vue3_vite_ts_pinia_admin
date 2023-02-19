@@ -8,6 +8,10 @@ import './assets/all.css'
 import './assets/common.css'
 //文章编辑器开始
 // @ts-ignore
+// v-md-preview预览
+import VMdPreview from '@kangc/v-md-editor/lib/preview';
+import '@kangc/v-md-editor/lib/style/preview.css';
+// v-md-editor编辑
 import VMdEditor from '@kangc/v-md-editor';
 import '@kangc/v-md-editor/lib/style/base-editor.css';
 // @ts-ignore
@@ -18,10 +22,14 @@ import hljs from 'highlight.js';
 VMdEditor.use(githubTheme, {
     Hljs: hljs,
 });
+VMdPreview.use(githubTheme, {
+    Hljs: hljs,
+});
 //文章编辑器结束
 const app = createApp(App)
 app.use(createPinia())
 app.use(router)
 app.use(ElementPlus)
 app.use(VMdEditor);
+app.use(VMdPreview);
 app.mount('#app')
