@@ -6,12 +6,15 @@
     :headers="uploadHeaders"
     :on-preview="handlePreview"
     :on-remove="handleRemove"
+    :multiple="true"
     list-type="picture"
   >
     <el-button type="primary">添加亿点点图片</el-button>
   </el-upload>
   <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick">
-    <el-tab-pane label="全部" name="first">全部</el-tab-pane>
+    <el-tab-pane label="全部" name="first">
+      <Waterfall :list="imgData" />
+    </el-tab-pane>
     <el-tab-pane label="风景" name="second">风景</el-tab-pane>
     <el-tab-pane label="壁纸" name="third">壁纸</el-tab-pane>
   </el-tabs>
@@ -22,13 +25,14 @@ import { ref,onMounted } from 'vue'
 import type { TabsPaneContext } from 'element-plus'
 import type { UploadProps, UploadUserFile } from 'element-plus'
 import { query } from '../../api/user';
+import Waterfall from "./components/waterfall.vue";
 // 上传图片部分开始
 const uploadHeaders={
   Authorization:localStorage.getItem('token')
 }
 const fileList = ref<UploadUserFile[]>([
 ])
-
+const imgData=ref<Array>([])
 const handleRemove: UploadProps['onRemove'] = (uploadFile, uploadFiles) => {
   console.log(uploadFile, uploadFiles)
 }
@@ -45,7 +49,7 @@ const handleClick = (tab: TabsPaneContext, event: Event) => {
 // 加载图片
 onMounted(()=>{
     query().then(res=>{
-      console.log(res)
+      imgData.value=res.data
     })
   })
 </script>
