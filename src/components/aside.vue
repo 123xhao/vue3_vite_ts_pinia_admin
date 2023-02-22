@@ -10,19 +10,19 @@
         <template #title><span style="margin-left: 10px;">vue3-admin</span></template>
       </el-menu-item>
       <el-menu-item index="/homepage">
-        <el-icon><setting /></el-icon>
+        <el-icon><Odometer /></el-icon>
         <template #title>首页</template>
       </el-menu-item>
       <el-menu-item index="/user/userInfo">
-        <el-icon><location /></el-icon>
+        <el-icon><User /></el-icon>
         <template #title>我的信息</template>
       </el-menu-item>
       <el-menu-item index="/home/table">
-        <el-icon><location /></el-icon>
+        <el-icon><Monitor /></el-icon>
         <template #title>表格信息</template>
       </el-menu-item>
       <el-menu-item index="/gallery">
-        <el-icon><location /></el-icon>
+        <el-icon><Notification /></el-icon>
         <template #title>画廊管理</template>
       </el-menu-item>
       <el-menu-item index="/article">
@@ -31,20 +31,19 @@
       </el-menu-item>
     </el-menu>
   </template>
-  
+
   <script lang="ts" setup>
   import { ref,computed } from 'vue'
   import useStore from '../store';
   import { useRouter } from 'vue-router';
   import {
-    Document,
-    Menu as IconMenu,
-    Location,
-    Setting,
+    User,
+    Notification,
+    Monitor,
+    Odometer,
     Files
   } from '@element-plus/icons-vue'
-import { el } from 'element-plus/es/locale';
-  
+
   const store=useStore()
   const router=useRouter()
   const isCollapse =computed(()=>{
@@ -150,7 +149,7 @@ import { el } from 'element-plus/es/locale';
         break;
         case '/article':
             console.log(1);
-            
+
         store.$patch((store)=>{
             data.forEach(item=>{
               item.type='info'
@@ -181,7 +180,7 @@ import { el } from 'element-plus/es/locale';
     }
   }
   </script>
-  
+
   <style scoped>
   .el-menu-item.is-disabled{
     opacity: 10;
@@ -211,4 +210,3 @@ import { el } from 'element-plus/es/locale';
     height: 100%;
   }
   </style>
-  
