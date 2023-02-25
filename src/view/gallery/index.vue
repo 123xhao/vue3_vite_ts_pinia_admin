@@ -32,7 +32,7 @@ const uploadHeaders={
 }
 const fileList = ref<UploadUserFile[]>([
 ])
-const imgData=ref<Array>([])
+const imgData=ref<Object[]>([])
 const handleRemove: UploadProps['onRemove'] = (uploadFile, uploadFiles) => {
   console.log(uploadFile, uploadFiles)
 }
@@ -41,7 +41,7 @@ const handlePreview: UploadProps['onPreview'] = (file) => {
   console.log(file)
 }
 // 上传图片部分结束
-const activeName = ref('first')
+const activeName = ref<string>('first')
 
 const handleClick = (tab: TabsPaneContext, event: Event) => {
   console.log(tab, event)

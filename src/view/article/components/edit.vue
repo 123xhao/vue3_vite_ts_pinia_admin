@@ -1,5 +1,5 @@
 <template>
-    <el-dialog :fullscreen="true" v-model="props.show" title="修改文章内容" center @close="close">
+    <el-dialog :fullscreen="true" v-model="show" title="修改文章内容" center @close="close">
       <div style="margin-bottom: 10px">
         <el-input v-model="title" placeholder="请输入文章标题" clearable />
       </div>
@@ -8,7 +8,7 @@
 </template>
 <script lang="ts" setup>
 
-import { onBeforeUnmount, ref, shallowRef, onMounted, watch } from 'vue'
+import { onBeforeUnmount, ref, shallowRef, toRefs, watch, } from 'vue'
 import { add,modify } from '../../../api/article';
 import { ElMessage } from 'element-plus';
 // 接收父组件传值
@@ -22,6 +22,7 @@ const props=defineProps({
         default:()=>{}
     },
 })
+const show=ref<boolean>(false)
 // 向父组件传值
 const emit=defineEmits(['close'])
 function close(val:boolean){
@@ -31,7 +32,13 @@ function close(val:boolean){
 // 编辑器实例，必须用 shallowRef
 const editorRef = shallowRef()
 // 文章修改及新增
-const title=ref<string>(props.articleData.title)
+const title=ref<string>('')
+// 监听是否打开了弹窗
+watch(() => props.show,(val:any)=>{
+    show.value=val
+    if(val) title.value=props.articleData.title
+})
+
 function articleSave(text:any,html:any){
   if(props.articleData.type==='新增'&&!title.value){
     ElMessage({

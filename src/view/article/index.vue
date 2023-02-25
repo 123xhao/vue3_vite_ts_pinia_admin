@@ -30,8 +30,9 @@
       <el-table-column label="操作" width="300">
         <template #default="scope">
             <el-button text type="primary" @click="articleInfo(scope.row)">查看</el-button>
-            <el-button text type="success" @click="articleEdit('编辑',scope.row)">编辑</el-button>
+            <el-button text type="warning" @click="articleEdit('编辑',scope.row)">编辑</el-button>
             <el-button text type="danger" @click="articleDelete(scope.row)">删除</el-button>
+            <el-button text type="success" @click="articleStatus(scope.row.id,scope.row.status)">{{scope.row.status==='未发布'?'发布':'取消'}}</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -40,10 +41,10 @@
 </template>
 <script lang="ts" setup>
 import { onMounted, reactive,Ref,ref } from 'vue'
-import { query,deleteArticle } from '../../api/article';
+import { query,deleteArticle,modify } from '../../api/article';
 import infoVue from './components/info.vue'
 import editVue from './components/edit.vue'
-import { ElMessage } from 'element-plus';
+import { ElMessage,ElMessageBox } from 'element-plus';
 
 
 // 打开新增文章弹窗
@@ -102,7 +103,32 @@ function articleDelete(params:any){
         duration:3*1000
     })
     articleQuery(null)
-})
+  })
+}
+function articleStatus(id:number,status: string){
+    status==='未发布'?status='已发布':status='未发布'
+    let params={
+        id,
+        status
+    }
+    ElMessageBox.confirm(
+    status==='已发布'?'是否确认发布?':'是否确认取消？',
+    status==='已发布'?'文章发布':'文章取消',
+    {
+      confirmButtonText: '确认',
+      cancelButtonText: '取消',
+      type: 'warning',
+    }
+  )
+    .then(() => {
+        modify(params).then(()=>{
+            articleQuery(null)
+            ElMessage({
+                type: 'success',
+                message: status==='已发布'?'文章发布成功':'文章取消成功',
+            })
+        })
+    })
 }
 </script>
 
