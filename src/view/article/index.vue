@@ -24,6 +24,7 @@
       border
     >
       <el-table-column prop="title" label="标题" />
+      <el-table-column prop="hot" label="热度（查看次数）" />
       <el-table-column prop="lookNumber" label="评论数" />
       <el-table-column prop="createTime" label="创建时间"/>
       <el-table-column prop="status" label="发布状态" />
