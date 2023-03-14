@@ -21,7 +21,7 @@ export function modify(data: any){
         data
     })
 }
-export function query(params){
+export function query(params:any){
     return request({
         url: '/api/article/query',
         method:'get',

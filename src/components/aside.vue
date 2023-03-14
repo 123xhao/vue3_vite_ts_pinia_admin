@@ -29,6 +29,14 @@
         <el-icon><Files /></el-icon>
         <template #title>文章管理</template>
       </el-menu-item>
+      <el-menu-item index="/comment">
+        <el-icon><ChatLineSquare /></el-icon>
+        <template #title>评论管理</template>
+      </el-menu-item>
+      <el-menu-item index="/leaveMessage">
+        <el-icon><EditPen /></el-icon>
+        <template #title>留言管理</template>
+      </el-menu-item>
     </el-menu>
   </template>
 
@@ -41,7 +49,9 @@
     Notification,
     Monitor,
     Odometer,
-    Files
+    Files,
+    ChatLineSquare,
+    EditPen
   } from '@element-plus/icons-vue'
 
   const store=useStore()
@@ -148,8 +158,6 @@
         router.push('/gallery')
         break;
         case '/article':
-            console.log(1);
-
         store.$patch((store)=>{
             data.forEach(item=>{
               item.type='info'
@@ -174,6 +182,58 @@
             store.tagMenuList=[...data,...add]
           })
         router.push('/article')
+        break;
+        case '/comment':
+        store.$patch((store)=>{
+            data.forEach(item=>{
+              item.type='info'
+              old.push(item.path)
+            })
+            if(old.includes('/comment')){
+              let index = old.indexOf('/comment')
+              data[index]={
+                  name: '评论管理',
+                  type: '',
+                  closable: true,
+                  path: '/comment'
+              }
+            }else{
+              add.push({
+                  name: '评论管理',
+                  type: '',
+                  closable: true,
+                  path: '/comment'
+                })
+            }
+            store.tagMenuList=[...data,...add]
+          })
+        router.push('/comment')
+        break;
+        case '/leaveMessage':
+        store.$patch((store)=>{
+            data.forEach(item=>{
+              item.type='info'
+              old.push(item.path)
+            })
+            if(old.includes('/leaveMessage')){
+              let index = old.indexOf('/leaveMessage')
+              data[index]={
+                  name: '留言管理',
+                  type: '',
+                  closable: true,
+                  path: '/leaveMessage'
+              }
+            }else{
+              add.push({
+                  name: '留言管理',
+                  type: '',
+                  closable: true,
+                  path: '/leaveMessage'
+                })
+            }
+            store.tagMenuList=[...data,...add]
+          })
+        router.push('/leaveMessage')
         break;
       default:
         break;

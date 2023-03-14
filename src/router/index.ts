@@ -38,6 +38,16 @@ const routes=[
                 path:'/article',
                 name:'article',
                 component:()=>import('../view/article/index.vue')
+            },
+            {
+                path:'/comment',
+                name:'comment',
+                component:()=>import('../view/comment/index.vue')
+            },
+            {
+                path:'/leaveMessage',
+                name:'leaveMessage',
+                component:()=>import('../view/leaveMessage/index.vue')
             }
         ]
     }
