@@ -8,6 +8,11 @@ const routes=[
         name:'Login',
         component:()=>import('../view/login/index.vue') 
     },
+    {
+        path:'/three',
+        name:'Three',
+        component:()=>import('../view/three/index.vue'),
+    },
     { 
         path:'/home',
         name:'Home',
@@ -58,8 +63,8 @@ const router = createRouter({
     routes
 })
 
-router.beforeEach((to, from, next) => {
-    if (to.name !== 'Login' && !localStorage.getItem('token')) next({ name: 'Login' })
+router.beforeEach((to:any, from, next) => {
+    if ( !['Login','Three'].includes(to.name) && !localStorage.getItem('token')) next({ name: 'Login' })
     else next()
 })
 

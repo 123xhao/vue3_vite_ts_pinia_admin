@@ -9,7 +9,7 @@
 </template>
 <script setup lang='ts'>
 // 图片列表
-const props=defineProps({
+const props:any=defineProps({
   list:Array
 })
 function imgUrl(url:any){

@@ -1,6 +1,5 @@
 <template>
     <div class="box">
-      <el-image style="width: 100%; height: 100%;vertical-align: bottom;" :src="bgImg" fit="cover" />
       <div class="bgCenter">
         <div :class="['text', userForm.userName?'has-content':'']">
           <input v-model="userForm.userName" type="text">
@@ -16,6 +15,7 @@
       <div class="operationBox">
         <button @click="login" class="custom-btn btn-7"><span>登 录</span></button>
       </div>
+      <three></three>
     </div>
 </template>
 
@@ -24,7 +24,7 @@ import { reactive } from 'vue';
 import { loginUser,userInfo } from '../../api/user';
 import { ElMessage } from 'element-plus'
 import { useRouter } from 'vue-router';
-import bgImg from '../../assets/bgImg/bg1.png'
+import Three from '../three/index.vue'
 const router =useRouter()
 const userForm=reactive({
     userName:'',

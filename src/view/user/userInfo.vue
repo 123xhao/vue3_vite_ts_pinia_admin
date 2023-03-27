@@ -83,7 +83,7 @@ import {
 import {modify} from '../../api/user'
 import { reactive,ref } from 'vue';
 import { ElButton, ElCard, ElDivider, ElForm, ElFormItem, ElIcon, ElImage, ElInput, ElTabPane, ElTabs, FormInstance, TabsPaneContext } from 'element-plus'
-let userInfo=JSON.parse(sessionStorage.getItem('userInfo'))
+let userInfo=JSON.parse((sessionStorage.getItem('userInfo') as any))
   const userData=reactive([
     {
         title:'用户昵称',

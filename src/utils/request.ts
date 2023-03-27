@@ -13,7 +13,7 @@ axios.defaults.headers['X-Requested-With'] = 'XMLHttpRequest'
 axios.defaults.headers.post['Content-Type'] = 'application/json'
 
 axios.interceptors.request.use(
-    config => {
+    (config:any) => {
         // 请求头添加参数
         config.headers['Authorization'] = localStorage.getItem('token')
         return config
